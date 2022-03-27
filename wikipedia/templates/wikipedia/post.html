@@ -1,0 +1,91 @@
+{% extends "wikipedia\base.html" %}
+{% load crispy_forms_tags %}
+  {% block content %}
+    <div class="row">
+        <div class="col-2"></div>
+<div class="col-7 border border-2 border-dark">
+    <div class="container p-2">
+        <div class="row border-bottom">
+            <div class="container p-2">
+                <div class="row">
+                    <div class="col-8 m-0">
+                        <legend class="border-bottom mb-4 text-center"> {{ post.title }} </legend>
+                    </div>
+                <div class="col-4 m-0 text-end">
+                    <div class="row text-end">
+                        <h4 class="lead">
+                            Date: {{ post.creation_date|date:"d M Y" }}
+                        </h4>
+                        <div class="row text-end">
+                            <p class="m-0">Author: {{ post.author.username }}</p>
+                        </div>
+                        <div class="row text-end">
+                            <p class="m-0">
+                        Semestr: {{ post.semestr }}
+                            </p>
+                        </div>
+                        {% if post.author_id == user.id %}
+                        <div class="row text-end">
+                            <div class="col-8"></div>
+                            <div class="col-4">
+                                <a href="{% url 'delete' post.id %}" class="btn btn-sm btn-warning">Delete</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <p>{{ post.text }}</p>
+        </div>
+            </div>
+        <div class="row">
+            <div class="container">
+                {% if comments.exists %}
+                <div class="row">
+                    <legend class="border-bottom mb-4 text-center">Comment Section</legend>
+                    <div class="container">
+                        {% for comment in comments %}
+                        <div class="row mb-2 ">
+                            <div class="container m-0 p-0">
+                                <div class="row  m-2 border border-bottom-1">
+                                    <div class="col-6">{{ comment.author }}</div>
+                                    <div class="col-6 text-end">{{ comment.comment_date|date:"d F Y - f"}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p>{{ comment.text }}</p>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="row">
+                    <legend class="border-bottom mb-4 text-center">Create Comment</legend>
+                </div>
+                <form method="POST">
+                <div class="row">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        {{ form|crispy }}
+                    </fieldset>
+                </div>
+                <div class="row">
+                    <div class="col-5"></div>
+                    <div class="col-2">
+                        <button class="btn btn-primary" type="submit">Comment</button>
+
+                    </div>
+                    <div class="col-5"></div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-3"></div>
+    </div>
+
+{% endblock content %}

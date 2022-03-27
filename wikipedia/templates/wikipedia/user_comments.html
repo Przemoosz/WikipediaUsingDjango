@@ -1,0 +1,54 @@
+{% extends "wikipedia\base.html" %}
+  {% block content %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-7 border border-2 border-dark">
+
+        <div class="container p-2">
+
+            {% if comments.exists %}
+            <legend class="border-bottom border-dark">
+                <h6 class="lead text-center"> Youre comments</h6>
+            </legend>
+            {% for comment in comments %}
+
+            <div class="row border-bottom">
+                <div class="container p-2">
+                    <div class="row">
+                        <div class="col-8 m-0">
+<!--                            {{ comment.id.fourm_post}}-->
+<!--                            {{ comment.forum_post.title }}-->
+                            {% for post in posts %}
+                            {% if post.id == comment.post_reference_id %}
+                            <a href="{% url 'post' post.id %}" class="h4 lead">{{ post.title }}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    <div class="col-4 m-0 text-end">
+                        <div class="row text-end">
+                            <h4 class="lead">
+                                Date: {{ comment.comment_date|date:"d F Y - f"}}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <p>{{ comment.text }}</p>
+            </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <legend class="border-bottom border-dark">
+                <h6 class="lead text-center"> You didn't comment any post yet!</h6>
+            </legend>
+            <p class="text-sm">
+                Check our forum and comment, any post you want!
+                <a href="{% url 'forum' %}">Take me to forum page</a>
+            </p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+

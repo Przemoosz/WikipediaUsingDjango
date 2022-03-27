@@ -1,0 +1,60 @@
+{% extends "wikipedia\base.html" %}
+  {% block content %}
+    <div class="row">
+        <div class="col-2"></div>
+
+        <div class="col-7 border border-2 border-dark ">
+
+            <div class="container p-2">
+
+                <div class="row border-bottom">
+                    <h4 class="lead">Przedmioty</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia.</p>
+                </div>
+
+                <div class="row border-bottom">
+                    <h4 class="lead ">Prowadzący</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia.</p>
+                </div>
+
+                <div class="row border-bottom">
+                    <h4 class="lead">Ogólne informacje</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <div class="container">
+                <div class="row border border-2 border-dark p-2">
+                    <h6 class="lead text-center">Personal data</h6>
+                    {% if user.is_authenticated %}
+                    <ul>
+                        Username: {{ user.username }}
+                    </ul>
+                    <ul>
+                        Name: {{ profile.Name }}
+                    </ul>
+                    <ul>
+                        Surname: {{ profile.surname }}
+                    </ul>
+                        {% if user.is_superuser %}
+                        <ul>
+                            <p class="text-danger"> Group: Admin </p>
+                        </ul>
+                        {% else %}
+                        <ul>
+                            Group: User
+                        </ul>
+                        {% endif %}
+                    {% else %}
+                    <p class="text-center">Log in to see your personal data</p>
+                    {% endif %}
+                </div>
+                <div class="row"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+

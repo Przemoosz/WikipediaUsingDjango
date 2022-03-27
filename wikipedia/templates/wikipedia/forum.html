@@ -1,0 +1,97 @@
+{% extends "wikipedia\base.html" %}
+{% load crispy_forms_tags %}
+  {% block content %}
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-7 border border-2 border-dark">
+
+        <div class="container p-2">
+
+            {% for post in posts %}
+
+            <div class="row border-bottom">
+                <div class="container p-2">
+                    <div class="row">
+                        <div class="col-8 m-0">
+                            <a href="{% url 'post' post.id %}" class="h4 lead">{{ post.title }}</a>
+                        </div>
+                    <div class="col-4 m-0 text-end">
+                        <div class="row text-end">
+                            <h4 class="lead">
+                                Date: {{ post.creation_date|date:"d M Y" }}
+                            </h4>
+                            <div class="row text-end">
+                                <p class="m-0">Author: {{ post.author.username }}</p>
+                            </div>
+                            <div class="row text-end">
+                                <p class="m-0">
+                            Semestr: {{ post.semestr }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-1">
+                                    <div class="row">
+                                        <button class="btn btn-sm btn-success p-0" type="button">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>{{ post.text|truncatewords:30 }}</p>
+            </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="col-3">
+        <div class="container-fluid">
+            <div class="row border border-2 border-dark p-2">
+                <div class="container">
+                    <div class="row">
+                        <h6 class="lead text-center">Forum</h6>
+                    </div>
+                    <div class="row mb-2">
+                        <a href="{% url 'post_create' %}" class="btn btn-success">Create Post</a>
+                    </div>
+                    <div class="row mb-2">
+                        <a href="{% url 'user_post' %}" class="btn btn-warning">Your Posts</a>
+                    </div>
+                    <div class="row mb-2">
+                        <a href="{% url 'user_comments' %}" class="btn btn-warning">Your Comments</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row border-bottom border-start border-end border-2 border-dark p-2">
+                <div class="container">
+                    <div class="row">
+                        <h6 class="lead text-center">Search</h6>
+                    </div>
+                    <div class="row mb-2">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                            {{ form|crispy }}
+                            </fieldset>
+                            <button class="btn btn-success" type="submit">Search</button>
+                        </form>
+                    </div>
+<!--                    <div class="row mb-2">-->
+<!--                        <a href="{% url 'user_post' %}" class="btn btn-warning">Your Posts</a>-->
+<!--                    </div>-->
+<!--                    <div class="row mb-2">-->
+
+<!--                        <a href="{% url 'user_comments' %}" class="btn btn-success">Search</a>-->
+<!--                    </div>-->
+                </div>
+            </div>
+            <div class="row"></div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock content %}
+

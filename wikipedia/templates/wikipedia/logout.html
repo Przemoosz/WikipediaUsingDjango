@@ -1,0 +1,21 @@
+{% extends "wikipedia\base.html" %}
+  {% block content %}
+    <div class="row">
+        <div class="col-2"></div>
+<div class="col-7 border border-2 border-dark ">
+    <div class="container p-2">
+        <div class="row">
+            <h4 class="lead text-center">Logged out sucesfully</h4>
+            </div>
+        <div class="row border-bottom">
+            <p class="lead text-center">Thanks for using our page. Hope to see you again! </p>
+        </div>
+        <div class="row text-center">
+            <small>Didn't want to log out? <a href="{% url 'login' %}">Log in again!</a></small>
+        </div>
+
+</div>
+<div class="col-3 "></div>
+    </div>
+{% endblock content %}
+

@@ -1,0 +1,55 @@
+{% extends "wikipedia\base.html" %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-2"></div>
+        <div class="col-7 border border-2 border-dark ">
+            <div class="container p-2">
+                Looking for: {{ search_text }}
+                {% for post in posts %}
+
+            <div class="row border-bottom">
+                <div class="container p-2">
+                    <div class="row">
+                        <div class="col-8 m-0">
+                            <a href="{% url 'post' post.id %}" class="h4 lead">{{ post.title }}</a>
+                        </div>
+                    <div class="col-4 m-0 text-end">
+                        <div class="row text-end">
+                            <h4 class="lead">
+                                Date: {{ post.creation_date|date:"d M Y" }}
+                            </h4>
+                            <div class="row text-end">
+                                <p class="m-0">Author: {{ post.author.username }}</p>
+                            </div>
+                            <div class="row text-end">
+                                <p class="m-0">
+                            Semestr: {{ post.semestr }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-10"></div>
+                                <div class="col-1">
+                                    <div class="row">
+                                        <button class="btn btn-sm btn-success p-0" type="button">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>{{ post.text|truncatewords:30 }}</p>
+            </div>
+                </div>
+            {% endfor %}
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Dont have a account? <a class="ml-2" href="{% url 'register' %}">Register</a>
+                </small>
+                </div>
+            </div>
+        </div>
+    <div class="col-3"></div>
+    </div>
+{% endblock content %}
+
